@@ -24,6 +24,7 @@
 #include <string_view>
 #include <limits.h>
 #include "../../tools/Random.h"
+#include <memory>
 // g++ q3.cpp -I ../../tools/  -std=c++17 
 
 class Creature{
@@ -293,11 +294,8 @@ public:
 };
 
 int main() {
-    Player* player{ new Player("Ruru") };
-    Game* game{ new Game(*player) };
-
-    // std::cout << std::boolalpha << "you chose to fight :" << game->isToFight() 
-    //         << std::endl;
+    std::unique_ptr<Player> player = std::make_unique<Player>("Ruru");
+    auto game{ std::make_unique<Game>(*player) };
 
     while( game->makeTurn() )
         ;
