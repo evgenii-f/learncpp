@@ -1,5 +1,6 @@
 #include <iostream>
 #include <string>
+#include <string_view>
 // 1. It’s sometimes useful to define data that travels in pairs. 
 // Write a templated class named Pair1 that allows the user to define one template type 
 // that is used for both values in the pair. The following function should work and print:
@@ -105,7 +106,8 @@ public:
 template <typename T>
 class StringValuePair : public Pair<std::string, T> {
 public:
-    StringValuePair(const std::string& first, const T& second) : Pair<std::string, T>(first, second) 
+    StringValuePair(std::string_view first, const T& second) 
+        : Pair<std::string, T>{static_cast<std::string>(first), second }
     {
     }
 };
